@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="changes.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="accelerated-python-for-cfd" class="slide level1">
+<h1>Accelerated Python for CFD</h1>
+<p><strong>Jamie Quinn</strong></p>
+<p>University College London / University of Glasgow</p>
+</section>
+<section id="melvin.py" class="slide level1">
+<h1>Melvin.py</h1>
+<p>A pseudo-spectral, GPU-accelerated framework for numerically solving 2D problems in fluids.</p>
+</section>
+<section id="mhd-tearing-instability" class="slide level1">
+<h1>MHD tearing instability</h1>
+<p><img data-src="./img/s1e6_re1e6_tearing.png" /></p>
+</section>
+<section id="thermohaline-staircase-formation" class="slide level1">
+<h1>Thermohaline staircase formation</h1>
+<p><img data-src="./img/staircase.png" /></p>
+</section>
+<section id="why-python" class="slide level1">
+<h1>Why Python?</h1>
+<ul>
+<li class="fragment">Easy prototyping</li>
+<li class="fragment">Fast iteration cycle</li>
+<li class="fragment">Collective good practice</li>
+<li class="fragment">Access to accelerated libraries</li>
+<li class="fragment">Students <em>want</em> to learn &amp; use Python</li>
+</ul>
+<div class="fragment">
+<p>It’s a great language for prototyping research codes &amp; teaching</p>
+</div>
+</section>
+<section id="easy-prototyping" class="slide level1">
+<h1>Easy prototyping</h1>
+<ul>
+<li class="fragment">spectral/FDM spatial discretisation</li>
+<li class="fragment">periodic/Dirichlet boundary conditions</li>
+<li class="fragment">2nd/4th order spatial derivatives for nonlinear advection operator</li>
+<li class="fragment">2nd/4th order Adams-Bashforth time integration</li>
+<li class="fragment">Implicit handling of diffusion operator</li>
+</ul>
+<div class="fragment">
+<p>Designed to be <strong>extensible</strong></p>
+</div>
+</section>
+<section id="fast-iteration-cycle" class="slide level1">
+<h1>Fast iteration cycle</h1>
+<ol type="1">
+<li class="fragment">Jupyter notebook</li>
+<li class="fragment">Collection of scripts</li>
+<li class="fragment">Fully-fledged Python package</li>
+</ol>
+<div class="fragment">
+<p>Permits refinement of <strong>methods</strong> and <strong>interfaces</strong></p>
+</div>
+</section>
+<section id="collective-good-practices" class="slide level1">
+<h1>Collective good practices</h1>
+<ul>
+<li class="fragment">Version control with git &amp; github</li>
+<li class="fragment">Parameterisation with JSON</li>
+<li class="fragment">Community contributions through github</li>
+<li class="fragment">Automated unit testing &amp; static analysis with pytest and Github Actions</li>
+</ul>
+</section>
+<section id="acceleration-cupy" class="slide level1">
+<h1>Acceleration: CuPy</h1>
+<pre><code>#import numpy as np
+import cupy as np
+
+spectral_arr = np.fft(physical_arr)</code></pre>
+<ul>
+<li class="fragment">GPU-accelerated Numpy</li>
+<li class="fragment">Access to multi-GPU</li>
+<li class="fragment">Easy integration with other libraries</li>
+<li class="fragment">Drop-in alternatives like Jax offer machine learning</li>
+<li class="fragment">Can profile using NVIDIA’s Nsight</li>
+</ul>
+</section>
+<section id="lessons-learned" class="slide level1">
+<h1>Lessons learned</h1>
+<ul>
+<li class="fragment">Non-compiled = unsafe -&gt; static analysis!!</li>
+<li class="fragment">Non-compiled = slow -&gt; offload as much as possible</li>
+<li class="fragment">Speed is “good enough”</li>
+<li class="fragment">Flexibility is worth it</li>
+<li class="fragment">Numpy -&gt; CuPY -&gt; Numba -&gt; CUDA python</li>
+</ul>
+</section>
+<section id="accelerated-c" class="slide level1">
+<h1>Accelerated C++?</h1>
+<ul>
+<li class="fragment">OpenMP, OpenACC, <code>std::par</code>, CUDA</li>
+<li class="fragment">C++20 nearly as simple as Python?</li>
+<li class="fragment">Melvin.py is 1.5x runtime of C++ CUDA version</li>
+</ul>
+</section>
+<section id="julia" class="slide level1">
+<h1>Julia?</h1>
+<ul>
+<li class="fragment">Offers impressive performance with Pythonic ease</li>
+<li class="fragment">Still young</li>
+<li class="fragment">Few opportunities beyond HPC</li>
+</ul>
+</section>
+<section id="section" class="slide level1">
+<h1></h1>
+<p>Python is rarely as fast as Fortran &amp; C++</p>
+<div class="fragment">
+<p>but its flexibility makes it an ideal language for</p>
+<ul>
+<li class="fragment">prototyping GPU-accelerated CFD codes</li>
+<li class="fragment">teaching CFD</li>
+</ul>
+</div>
+</section>
+<section id="thanks-questions" class="slide level1">
+<h1>Thanks! Questions?</h1>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+      
+        // Display controls in the bottom right corner
+        controls: 0,
+        // Push each slide change to the browser history
+        history: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
